@@ -32,3 +32,5 @@ B. IMPLEMENTATION
   a) algorithm trainer,
   b) algorithm user.
 5. Frontend
+
+(https://github.com/zagorskitomasz/ML_CarPricing/blob/master/Car-pricing-diagram.jpg)
