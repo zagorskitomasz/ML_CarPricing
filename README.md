@@ -18,8 +18,8 @@
 A. PROJECT SETUP
 1. <s>System architecture diagram.</s>
 2. <s>Git repo.</s>
-3. Spring Boot app.
-4. Choose and add ML/math library.
+3. <s>Spring Boot app.</s>
+4. <s>Choose and add ML/math library.</s>
 5. Choose website with car prices data.
 
 B. IMPLEMENTATION
