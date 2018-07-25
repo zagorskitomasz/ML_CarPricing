@@ -21,9 +21,9 @@ A. PROJECT SETUP
 
 B. IMPLEMENTATION
 1. Controller.
-2. Data service
-  a) connector,
-  b) parser.
+2. Data service  
+  a) connector,  
+  b) parser.  
 3. Data model.
 4. Processing service
 a) algorithm trainer,
@@ -32,7 +32,7 @@ b) algorithm user.
 
 ![diagram](https://github.com/zagorskitomasz/ML_CarPricing/blob/master/Car-pricing-diagram.jpg)
 
-<b>Misc notes:</b>
+<b>Misc notes:</b>  
 Allegro REST API usage algorithm:
 1. Create dedicated Allegro user.
 2. Manually get first OAuth token.
