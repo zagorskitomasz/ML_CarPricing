@@ -10,24 +10,19 @@
 <b>Technologies:</b>
 - Java 8,
 - Spring (Boot and DI container),
+- REST,
 - Vaadin frontend,
 - Some ML/math library,
 
 <b>==TODO==</b>
 
 A. PROJECT SETUP
-1. <s>System architecture diagram.</s>
-2. <s>Git repo.</s>
-3. <s>Spring Boot app.</s>
-4. <s>Choose and add ML/math library.</s>
-5. <s>Choose website with car prices data.</s>
+==DONE==
 
 B. IMPLEMENTATION
 1. Controller.
 2. Data service
-
   a) connector,
-
   b) parser.
 3. Data model.
 4. Processing service
@@ -37,6 +32,7 @@ B. IMPLEMENTATION
 
 ![diagram](https://github.com/zagorskitomasz/ML_CarPricing/blob/master/Car-pricing-diagram.jpg)
 
+<b>Misc notes:</b>
 Allegro REST API usage algorithm:
 1. Create dedicated Allegro user.
 2. Manually get first OAuth token.
