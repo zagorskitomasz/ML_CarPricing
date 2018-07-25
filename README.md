@@ -20,12 +20,14 @@ A. PROJECT SETUP
 2. <s>Git repo.</s>
 3. <s>Spring Boot app.</s>
 4. <s>Choose and add ML/math library.</s>
-5. Choose website with car prices data.
+5. <s>Choose website with car prices data.</s>
 
 B. IMPLEMENTATION
 1. Controller.
 2. Data service
+
   a) connector,
+
   b) parser.
 3. Data model.
 4. Processing service
@@ -34,3 +36,11 @@ B. IMPLEMENTATION
 5. Frontend
 
 ![diagram](https://github.com/zagorskitomasz/ML_CarPricing/blob/master/Car-pricing-diagram.jpg)
+
+Allegro REST API usage algorithm:
+1. Create dedicated Allegro user.
+2. Manually get first OAuth token.
+3. Insert token into DB.
+4. App use: try authenticate with current token (success -> 5, failure -> 6).
+5. Use token to communicate with API.
+6. Automatically refresh token and save in DB. Go to 4.
