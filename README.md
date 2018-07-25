@@ -26,8 +26,8 @@ B. IMPLEMENTATION
   b) parser.
 3. Data model.
 4. Processing service
-  a) algorithm trainer,
-  b) algorithm user.
+a) algorithm trainer,
+b) algorithm user.
 5. Frontend
 
 ![diagram](https://github.com/zagorskitomasz/ML_CarPricing/blob/master/Car-pricing-diagram.jpg)
