@@ -16,8 +16,8 @@
 
 <b>==TODO==</b>
 
-A. PROJECT SETUP
-==DONE==
+A. PROJECT SETUP  
+  ==DONE==
 
 B. IMPLEMENTATION
 1. Controller.
