@@ -33,6 +33,7 @@ b) algorithm user.
 ![diagram](https://github.com/zagorskitomasz/ML_CarPricing/blob/master/Car-pricing-diagram.jpg)
 
 <b>Misc notes:</b>  
+  
 Allegro REST API usage algorithm:
 1. Create dedicated Allegro user.
 2. Manually get first OAuth token.
