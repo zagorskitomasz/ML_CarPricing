@@ -1,26 +1,51 @@
 package com.zagorskidev.carpricing.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class Controller 
 {
-	@RequestMapping("/")
+	@Autowired
+	private DataService dataService;
+	
+	@Autowired
+	private RegressionService regressionService;
+	
+	@GetMapping("/sayHello")
 	public String sayHello()
 	{
 		return "hello";
 	}
 	
-	@RequestMapping("/process")
-	public String process()
+	@GetMapping("/getCarTypes")
+	public @ResponseBody Map<String, List<String>> getCarTypes()
 	{
-		/*TODO
-		 * 1. get car data from request
-		 * 2. prepare data object with data service (use car data to select car type)
-		 * 3. train algorithm (use data object)
-		 * 4. use algorithm to price user's car
-		 */
-		return null;
+		return dataService.getCarTypes();
+	}
+	
+	@GetMapping("/process")
+	public String process(@RequestBody CarParameters carParameters)
+	{
+		if(!dataService.loadCarTypeData(carParameters.getType()));
+			return null;
+		
+		regressionService.trainClassifier();
+		
+		return regressionService.predict(carParameters.getParams());
+	}
+	
+	@RequestMapping("/allegroAuth")
+	public void allegroAuth(@RequestBody String code)
+	{
+		dataService.processAllegroClientCode(code);
 	}
 }
