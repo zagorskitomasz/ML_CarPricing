@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zagorskidev.carpricing.domain.CarParameters;
+import com.zagorskidev.carpricing.service.DataService;
+import com.zagorskidev.carpricing.service.RegressionService;
+
 @RestController
 @RequestMapping("/api")
-public class Controller 
+public class ApiController 
 {
 	@Autowired
 	private DataService dataService;
@@ -35,17 +39,11 @@ public class Controller
 	@GetMapping("/process")
 	public String process(@RequestBody CarParameters carParameters)
 	{
-		if(!dataService.loadCarTypeData(carParameters.getType()));
+		if(!dataService.loadCarTypeData(carParameters.getType()))
 			return null;
 		
 		regressionService.trainClassifier();
 		
 		return regressionService.predict(carParameters.getParams());
-	}
-	
-	@RequestMapping("/allegroAuth")
-	public void allegroAuth(@RequestBody String code)
-	{
-		dataService.processAllegroClientCode(code);
 	}
 }
