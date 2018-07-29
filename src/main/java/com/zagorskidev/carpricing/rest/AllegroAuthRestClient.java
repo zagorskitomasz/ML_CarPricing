@@ -19,9 +19,9 @@ public class AllegroAuthRestClient implements AllegroAuthRest
 {
 	private static final String TOKEN_REQUEST_URL = "https://allegro.pl/auth/oauth/token?grant_type=authorization_code&code=#CODE#&redirect_uri=#REDIRECT_URL#";
 	
-	private String redirectURL = "";
-	private String clientId;
-	private String clientSecret;
+	private String redirectURL = null;
+	private String clientId = null;
+	private String clientSecret = null;
 	
 	@Autowired
 	private Environment environment;
