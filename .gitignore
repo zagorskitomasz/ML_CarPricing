@@ -28,7 +28,7 @@ hs_err_pid*
 .recommenders
 .settings
 .springBeans
-.properties
+*.properties
 /build
 
 /target/
