@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -36,8 +35,8 @@ public class AllegroAuthRestClient implements AllegroAuthRest
 	public SimpleToken requestToken(String code) 
 	{
         ResponseEntity<AccessToken> response = postForToken(code);
-		Logger.getGlobal().log(Level.ALL, "Response body: " + response.getBody());
-		Logger.getGlobal().log(Level.ALL, "Response status: " + response.getStatusCode().name());
+		System.out.println("Response body: " + response.getBody());
+		System.out.println("Response status: " + response.getStatusCode().name());
         
 		return processResponse(response);
 	}
@@ -48,7 +47,7 @@ public class AllegroAuthRestClient implements AllegroAuthRest
         Map<String, String> variables = createRequestVariables(code);
         
 		ResponseEntity<AccessToken> response = 
-				allegroRestTemplate.exchange(TOKEN_REQUEST_URL, HttpMethod.POST, entity, AccessToken.class, variables);
+				allegroRestTemplate.postForEntity(TOKEN_REQUEST_URL, entity, AccessToken.class, variables);
 		return response;
 	}
 
