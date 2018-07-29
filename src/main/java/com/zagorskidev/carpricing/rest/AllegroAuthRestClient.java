@@ -36,7 +36,9 @@ public class AllegroAuthRestClient implements AllegroAuthRest
 	public SimpleToken requestToken(String code) 
 	{
         ResponseEntity<AccessToken> response = postForToken(code);
-		
+		Logger.getGlobal().log(Level.ALL, "Response body: " + response.getBody());
+		Logger.getGlobal().log(Level.ALL, "Response status: " + response.getStatusCode().name());
+        
 		return processResponse(response);
 	}
 
@@ -73,7 +75,7 @@ public class AllegroAuthRestClient implements AllegroAuthRest
 	private void prepareVariables()
 	{
 		if(redirectURL == null)
-			redirectURL = environment.getProperty("systemURL");
+			redirectURL = environment.getProperty("redirectURL");
 		if(clientId == null)
 			clientId = environment.getProperty("clientId");
 		if(clientSecret == null)
