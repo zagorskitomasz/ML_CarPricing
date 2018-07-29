@@ -2,8 +2,6 @@ package com.zagorskidev.carpricing.rest;
 
 import java.nio.charset.Charset;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class AllegroAuthRestClient implements AllegroAuthRest 
 {
-	private static final String TOKEN_REQUEST_URL = "https://allegro.pl/auth/oauth/token";
+	private static final String TOKEN_REQUEST_URL = "https://allegro.pl/auth/oauth/token?grant_type=authorization_code&code=#CODE#&redirect_uri=#REDIRECT_URL#";
 	
 	private String redirectURL = "";
 	private String clientId;
@@ -34,33 +32,22 @@ public class AllegroAuthRestClient implements AllegroAuthRest
 	@Override
 	public SimpleToken requestToken(String code) 
 	{
+		prepareVariables();
+		
         ResponseEntity<AccessToken> response = postForToken(code);
 		System.out.println("Response body: " + response.getBody());
 		System.out.println("Response status: " + response.getStatusCode().name());
         
 		return processResponse(response);
-	}
+	}	
 
 	private ResponseEntity<AccessToken> postForToken(String code) 
 	{
 		HttpEntity<String> entity = createHeadersEntity();
-        Map<String, String> variables = createRequestVariables(code);
         
 		ResponseEntity<AccessToken> response = 
-				allegroRestTemplate.postForEntity(TOKEN_REQUEST_URL, entity, AccessToken.class, variables);
+				allegroRestTemplate.postForEntity(TOKEN_REQUEST_URL.replaceAll("#CODE#", code).replaceAll("#REDIRECT_URL#", redirectURL), entity, AccessToken.class);
 		return response;
-	}
-
-	private Map<String, String> createRequestVariables(String code) 
-	{
-		prepareVariables();
-		
-		Map<String,String> variables = new HashMap<>();
-        variables.put("grant_type", "authorization_code");
-        variables.put("code", code);
-        variables.put("redirect_uri", redirectURL);
-        
-		return variables;
 	}
 
 	private HttpEntity<String> createHeadersEntity() 
