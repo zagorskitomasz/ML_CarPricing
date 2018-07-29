@@ -34,19 +34,19 @@ public class AllegroAuthRestClient implements AllegroAuthRest
 	{
 		prepareVariables();
 		
-        ResponseEntity<AccessToken> response = postForToken(code);
+        ResponseEntity<?> response = postForToken(code);
 		System.out.println("Response body: " + response.getBody());
 		System.out.println("Response status: " + response.getStatusCode().name());
         
-		return processResponse(response);
+		return null; //processResponse(response);
 	}	
 
-	private ResponseEntity<AccessToken> postForToken(String code) 
+	private ResponseEntity<?> postForToken(String code) 
 	{
 		HttpEntity<String> entity = createHeadersEntity();
         
-		ResponseEntity<AccessToken> response = 
-				allegroRestTemplate.postForEntity(TOKEN_REQUEST_URL.replaceAll("#CODE#", code).replaceAll("#REDIRECT_URL#", redirectURL), entity, AccessToken.class);
+		ResponseEntity<?> response = 
+				allegroRestTemplate.postForEntity(TOKEN_REQUEST_URL.replaceAll("#CODE#", code).replaceAll("#REDIRECT_URL#", redirectURL), entity, Object.class);
 		return response;
 	}
 
