@@ -2,6 +2,8 @@ package com.zagorskidev.carpricing.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,7 @@ public class DataServiceImpl implements DataService
 	@Override
 	public void saveToken(SimpleToken authToken) 
 	{
-		System.out.println("access token: " + authToken.getAccessToken());
-		System.out.println("refresh token: " + authToken.getRefreshToken());
+		Logger.getGlobal().log(Level.INFO, "Access token: " + authToken.getAccessToken());
+		Logger.getGlobal().log(Level.INFO, "Refresh token: " + authToken.getRefreshToken());
 	}
 }
