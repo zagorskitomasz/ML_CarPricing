@@ -1,5 +1,6 @@
 package com.zagorskidev.carpricing.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public class ApiController
 	}
 	
 	@GetMapping("/process")
-	public String process(@RequestBody CarParameters carParameters)
+	public BigDecimal process(@RequestBody CarParameters carParameters)
 	{
 		if(!dataService.loadCarTypeData(carParameters.getType()))
 			return null;
