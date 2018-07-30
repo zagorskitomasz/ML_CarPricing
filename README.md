@@ -41,3 +41,6 @@ Allegro REST API usage algorithm:
 4. App use: try authenticate with current token (success -> 5, failure -> 6).
 5. Use token to communicate with API.
 6. Automatically refresh token and save in DB. Go to 4.
+
+Schedule token refreshing task (11 hours, first run at application launch) - it's steps 4-6 from above algorithm.
+Keeping token in memory (somewhere in AllegroAuth bean) - if refreshed, update here too.
