@@ -11,4 +11,5 @@ public interface DataService
 	public Map<String, List<String>> getCarTypes();
 	public boolean loadCarTypeData(CarType type);
 	public void saveToken(SimpleToken authToken);
+	SimpleToken loadToken();
 }
