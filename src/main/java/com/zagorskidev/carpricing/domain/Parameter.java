@@ -1,5 +1,7 @@
 package com.zagorskidev.carpricing.domain;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +25,9 @@ public class Parameter
 	
 	@Column(name="VALUE")
 	private String value;
+	
+	@Column(name="CHANGED")
+	private Timestamp changed;
 	
 	public Parameter() {}
 	
@@ -61,6 +66,14 @@ public class Parameter
 	{
 		this.value = value;
 	}
-	
-	
+
+	public Timestamp getChanged() 
+	{
+		return changed;
+	}
+
+	public void setChanged(Timestamp changed) 
+	{
+		this.changed = changed;
+	}
 }
