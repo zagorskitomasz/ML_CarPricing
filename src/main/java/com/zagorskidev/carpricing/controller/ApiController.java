@@ -28,7 +28,7 @@ public class ApiController
 	@GetMapping("/sayHello")
 	public String sayHello()
 	{
-		return dataService.loadToken().getAccessToken();
+		return "hello";
 	}
 	
 	@GetMapping("/getCarTypes")
