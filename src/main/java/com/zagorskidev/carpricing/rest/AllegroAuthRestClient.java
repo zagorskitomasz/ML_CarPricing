@@ -1,7 +1,10 @@
 package com.zagorskidev.carpricing.rest;
 
 import java.nio.charset.Charset;
+import java.sql.Timestamp;
 import java.util.Base64;
+import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -90,8 +93,12 @@ public class AllegroAuthRestClient implements AllegroAuthRest
 	private SimpleToken processResponse(ResponseEntity<AccessToken> response) 
 	{
 		if(HttpStatus.OK.equals(response.getStatusCode()))
-			return new SimpleToken(response.getBody().getAccess_token(),response.getBody().getRefresh_token());
-		
+		{
+			Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+			long time = cal.getTimeInMillis();
+			
+			return new SimpleToken(response.getBody().getAccess_token(),response.getBody().getRefresh_token(),new Timestamp(time));
+		}
 		Logger.getGlobal().log(Level.WARNING, "Allegro auth response status not OK");
 		return null;
 	}

@@ -1,5 +1,6 @@
 package com.zagorskidev.carpricing.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,13 +43,18 @@ class TokenDataServiceImpl implements TokenDataService{
 	@Override
 	public SimpleToken loadToken() 
 	{
-		String accessTokenValue = loadParamValue(Parameters.ACCESS_TOKEN);
-		String refreshTokenValue = loadParamValue(Parameters.REFRESH_TOKEN);
+		Parameter accessToken = loadParam(Parameters.ACCESS_TOKEN);
+		Parameter refreshToken = loadParam(Parameters.REFRESH_TOKEN);
 		
-		return new SimpleToken(accessTokenValue, refreshTokenValue);
+		String accessTokenValue = accessToken.getValue();
+		String refreshTokenValue = refreshToken.getValue();
+		
+		Timestamp refreshed = accessToken.getChanged();
+		
+		return new SimpleToken(accessTokenValue, refreshTokenValue, refreshed);
 	}
 
-	private String loadParamValue(Parameters parameter) 
+	private Parameter loadParam(Parameters parameter) 
 	{
 		List<Parameter> paramEntity = parameterRepository.findParametersByName(parameter.name());
 		if(paramEntity == null || paramEntity.size() != 1)
@@ -56,6 +62,6 @@ class TokenDataServiceImpl implements TokenDataService{
 			Logger.getGlobal().log(Level.INFO, "Problem while reading parameter " + parameter.name());
 			return null;
 		}
-		return paramEntity.get(0).getValue();
+		return paramEntity.get(0);
 	}
 }

@@ -28,4 +28,10 @@ public class AllegroAuthServiceImpl implements AllegroAuthService
 		else
 			Logger.getGlobal().log(Level.WARNING, "Allegro auth token is null.");
 	}
+
+	@Override
+	public void refreshToken(SimpleToken currentToken) 
+	{
+		// TODO Auto-generated method stub
+	}
 }
