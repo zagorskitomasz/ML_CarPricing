@@ -32,6 +32,11 @@ public class AllegroAuthServiceImpl implements AllegroAuthService
 	@Override
 	public void refreshToken(SimpleToken currentToken) 
 	{
-		// TODO Auto-generated method stub
+		SimpleToken newToken = allegroRest.refreshToken(currentToken.getRefreshToken());
+		
+		if(newToken != null)
+			dataService.saveToken(newToken);
+		else
+			Logger.getGlobal().log(Level.WARNING, "Allegro auth token is null.");
 	}
 }

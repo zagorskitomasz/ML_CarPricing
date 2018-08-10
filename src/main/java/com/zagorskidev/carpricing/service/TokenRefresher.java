@@ -33,14 +33,16 @@ public class TokenRefresher
 		
 		if(currentToken.getRefreshed().before(new Timestamp(time - EIGHT_HOURS)))
 			refreshToken(currentToken);
+		else
+			Logger.getGlobal().log(Level.ALL, "Token up to date");
 	}
 	
 	private void refreshToken(SimpleToken currentToken)
 	{
 		try
 		{
-		authService.refreshToken(currentToken);
-		Logger.getGlobal().log(Level.ALL, "Token refreshed");
+			authService.refreshToken(currentToken);
+			Logger.getGlobal().log(Level.ALL, "Token refreshed");
 		}
 		catch(Exception ex)
 		{

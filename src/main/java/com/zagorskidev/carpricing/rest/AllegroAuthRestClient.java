@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 public class AllegroAuthRestClient implements AllegroAuthRest 
 {
 	private static final String TOKEN_REQUEST_URL = "https://allegro.pl/auth/oauth/token?grant_type=authorization_code&code=#CODE#&redirect_uri=#REDIRECT_URL#";
+	private static final String REFRESH_TOKEN_URL = "https://allegro.pl/auth/oauth/token?grant_type=refresh_token&refresh_token=#REFRESH_TOKEN#&redirect_uri=#REDIRECT_URL#";
 	
 	private String redirectURL = null;
 	private String clientId = null;
@@ -101,5 +102,26 @@ public class AllegroAuthRestClient implements AllegroAuthRest
 		}
 		Logger.getGlobal().log(Level.WARNING, "Allegro auth response status not OK");
 		return null;
+	}
+
+	@Override
+	public SimpleToken refreshToken(String refreshToken) 
+	{
+		prepareVariables();
+		
+        ResponseEntity<AccessToken> response = postForRefreshToken(refreshToken);
+        Logger.getGlobal().log(Level.INFO, "Response body: " + response.getBody());
+        Logger.getGlobal().log(Level.INFO, "Response status: " + response.getStatusCode().name());
+        
+		return processResponse(response);
+	}	
+
+	private ResponseEntity<AccessToken> postForRefreshToken(String refreshToken) 
+	{
+		HttpEntity<String> entity = createHeadersEntity();
+        
+		ResponseEntity<AccessToken> response = 
+				allegroRestTemplate.postForEntity(REFRESH_TOKEN_URL.replaceAll("#REFRESH_TOKEN#", refreshToken).replaceAll("#REDIRECT_URL#", redirectURL), entity, AccessToken.class);
+		return response;
 	}
 }
