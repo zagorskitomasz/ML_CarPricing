@@ -16,6 +16,7 @@ import com.zagorskidev.carpricing.rest.SimpleToken;
 public class TokenRefresher 
 {
 	private static final long EIGHT_HOURS = 8 * 60 * 60 * 1000;
+	private static final long ONE_HOUR = 60 * 60 * 1000;
 	
 	@Autowired
 	private AllegroAuthService authService;
@@ -23,7 +24,7 @@ public class TokenRefresher
 	@Autowired
 	private TokenDataService tokenService;
 	
-	@Scheduled(fixedDelay=60000)
+	@Scheduled(fixedDelay=ONE_HOUR)
 	public void checkToken()
 	{
 		SimpleToken currentToken = tokenService.loadToken();
