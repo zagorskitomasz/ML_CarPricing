@@ -34,7 +34,7 @@ public class TokenRefresher
 		if(currentToken.getRefreshed().before(new Timestamp(time - EIGHT_HOURS)))
 			refreshToken(currentToken);
 		else
-			Logger.getGlobal().log(Level.ALL, "Token up to date");
+			Logger.getGlobal().log(Level.INFO, "Token up to date");
 	}
 	
 	private void refreshToken(SimpleToken currentToken)
@@ -42,11 +42,11 @@ public class TokenRefresher
 		try
 		{
 			authService.refreshToken(currentToken);
-			Logger.getGlobal().log(Level.ALL, "Token refreshed");
+			Logger.getGlobal().log(Level.INFO, "Token refreshed");
 		}
 		catch(Exception ex)
 		{
-			Logger.getGlobal().log(Level.ALL, "Error occured while refreshing token");
+			Logger.getGlobal().log(Level.INFO, "Error occured while refreshing token");
 		}
 	}
 }
