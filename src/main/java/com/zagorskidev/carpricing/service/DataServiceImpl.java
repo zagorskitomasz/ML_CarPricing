@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.zagorskidev.carpricing.domain.CarType;
 import com.zagorskidev.carpricing.rest.SimpleToken;
+import com.zagorskidev.carpricing.service.loaders.CarTypesLoader;
 
 @Service
 public class DataServiceImpl implements DataService 
@@ -15,10 +16,13 @@ public class DataServiceImpl implements DataService
 	@Autowired
 	private TokenDataService tokenDataService;
 	
+	@Autowired
+	private CarTypesLoader typesLoader;
+	
 	@Override
 	public Map<String, List<String>> getCarTypes() 
 	{
-		return null;
+		return typesLoader.load();
 	}
 
 	@Override
