@@ -5,10 +5,11 @@ import java.util.Map;
 
 import com.zagorskidev.carpricing.domain.CarType;
 import com.zagorskidev.carpricing.rest.SimpleToken;
+import com.zagorskidev.carpricing.service.loaders.SimpleCategory;
 
 public interface DataService 
 {
-	public Map<String, List<String>> getCarTypes();
+	public Map<SimpleCategory, List<SimpleCategory>> getCarTypes();
 	public boolean loadCarTypeData(CarType type);
 	public void saveToken(SimpleToken authToken);
 	SimpleToken loadToken();

@@ -12,12 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.zagorskidev.carpricing.rest.parsing.Categories;
 import com.zagorskidev.carpricing.service.DataService;
 
 @Component
 public class AllegroRestImpl implements AllegroRest
 {
-	private static final String CAR_TYPES_URL = "https://api.allegro.pl/sale/categories";
+	private static final String CAR_TYPES_URL = "https://api.allegro.pl/categories";
+	private static final String ACCEPT_HEADER = "application/vnd.allegro.public.v1+json";
 
 	@Autowired
 	private RestTemplate allegroRestTemplate;
@@ -26,18 +28,18 @@ public class AllegroRestImpl implements AllegroRest
 	private DataService dataService;
 	
 	@Override
-	public Object processCarTypesRequest() 
+	public Categories processCarTypesRequest() 
 	{
-        ResponseEntity<Object> response = getCarTypes();
+        ResponseEntity<Categories> response = getCarTypes();
 		return processResponse(response);
 	}
 
-	private ResponseEntity<Object> getCarTypes() 
+	private ResponseEntity<Categories> getCarTypes() 
 	{
 		HttpEntity<String> entity = createHeadersEntity();
         
-		ResponseEntity<Object> response = 
-				allegroRestTemplate.exchange(CAR_TYPES_URL, HttpMethod.GET, entity, Object.class);
+		ResponseEntity<Categories> response = 
+				allegroRestTemplate.exchange(CAR_TYPES_URL, HttpMethod.GET, entity, Categories.class);
 		return response;
 	}
 
@@ -53,7 +55,7 @@ public class AllegroRestImpl implements AllegroRest
 	{
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", createAuthString());
-		headers.set("Accept", createAcceptString());
+		headers.set("Accept", ACCEPT_HEADER);
 		
 		return headers;
 	}
@@ -65,13 +67,8 @@ public class AllegroRestImpl implements AllegroRest
         
 		return auth;
 	}
-	
-	private String createAcceptString()
-	{
-		return "application/vnd.allegro.public.v1+json";
-	}
 
-	private Object processResponse(ResponseEntity<Object> response) 
+	private Categories processResponse(ResponseEntity<Categories> response) 
 	{
 		if(HttpStatus.OK.equals(response.getStatusCode()))
 		{

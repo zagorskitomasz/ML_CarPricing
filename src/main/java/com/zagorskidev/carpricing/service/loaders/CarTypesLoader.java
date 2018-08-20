@@ -5,5 +5,5 @@ import java.util.Map;
 
 public interface CarTypesLoader 
 {
-	public Map<String, List<String>> load();
+	public Map<SimpleCategory, List<SimpleCategory>> load();
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.zagorskidev.carpricing.domain.CarType;
 import com.zagorskidev.carpricing.rest.SimpleToken;
 import com.zagorskidev.carpricing.service.loaders.CarTypesLoader;
+import com.zagorskidev.carpricing.service.loaders.SimpleCategory;
 
 @Service
 public class DataServiceImpl implements DataService 
@@ -20,7 +21,7 @@ public class DataServiceImpl implements DataService
 	private CarTypesLoader typesLoader;
 	
 	@Override
-	public Map<String, List<String>> getCarTypes() 
+	public Map<SimpleCategory, List<SimpleCategory>> getCarTypes() 
 	{
 		return typesLoader.load();
 	}

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zagorskidev.carpricing.rest.AllegroRest;
+import com.zagorskidev.carpricing.rest.parsing.Categories;
 
 @Component
 public class CarTypesLoaderImpl implements CarTypesLoader 
@@ -15,9 +16,9 @@ public class CarTypesLoaderImpl implements CarTypesLoader
 	private AllegroRest allegroRest;
 	
 	@Override
-	public Map<String, List<String>> load() 
+	public Map<SimpleCategory, List<SimpleCategory>> load() 
 	{
-		Object response = allegroRest.processCarTypesRequest();
-		return null;
+		Categories categories = allegroRest.processCarTypesRequest();
+		return new CategoriesProcessor().process(categories);
 	}
 }
