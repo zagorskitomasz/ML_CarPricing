@@ -10,7 +10,7 @@ import com.zagorskidev.carpricing.rest.parsing.Categories;
 
 public class CategoriesProcessor 
 {
-	private static final String OSOBOWE_CATEGORY = "4029";
+	public static final String OSOBOWE_CATEGORY = "4029";
 	
 	private Categories categories;
 	private Map<SimpleCategory, List<SimpleCategory>> categoriesMap;
@@ -41,7 +41,7 @@ public class CategoriesProcessor
 			{
 				List<SimpleCategory> subcategories = new ArrayList<>();
 				categoriesIdMap.put(element.getId(), subcategories);
-				categoriesMap.put(new SimpleCategory(element.getId(), element.getName()),subcategories);
+				categoriesMap.put(new SimpleCategory(Integer.valueOf(element.getId()), element.getName(), Integer.valueOf(OSOBOWE_CATEGORY)),subcategories);
 			}
 		});
 	}
@@ -51,7 +51,7 @@ public class CategoriesProcessor
 		Arrays.asList(categories.getCategories()).forEach(element -> 
 		{
 			if(categoriesIdMap.containsKey(element.getParent().getId()))
-				categoriesIdMap.get(element.getParent().getId()).add(new SimpleCategory(element.getId(), element.getName()));
+				categoriesIdMap.get(element.getParent().getId()).add(new SimpleCategory(Integer.valueOf(element.getId()), element.getName(), Integer.valueOf(element.getParent().getId())));
 		});
 	}
 }

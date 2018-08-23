@@ -1,22 +1,40 @@
 package com.zagorskidev.carpricing.service.loaders;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "CAR_CATEGORY")
 public class SimpleCategory 
 {
-	private String id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="ID")
+	private Integer id;
+	
+	@Column(name="NAME")
 	private String name;
 	
-	public SimpleCategory(String id, String name)
+	@Column(name="PARENT")
+	private Integer parent;
+
+	public SimpleCategory(Integer id, String name, Integer parent) 
 	{
 		this.id = id;
 		this.name = name;
+		this.parent = parent;
 	}
 
-	public String getId() 
+	public Integer getId() 
 	{
 		return id;
 	}
 
-	public void setId(String id) 
+	public void setId(Integer id) 
 	{
 		this.id = id;
 	}
@@ -29,5 +47,15 @@ public class SimpleCategory
 	public void setName(String name) 
 	{
 		this.name = name;
+	}
+
+	public Integer getParent() 
+	{
+		return parent;
+	}
+
+	public void setParent(Integer parent) 
+	{
+		this.parent = parent;
 	}
 }
