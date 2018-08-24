@@ -1,11 +1,11 @@
 package com.zagorskidev.carpricing.service;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zagorskidev.carpricing.dao.CategoriesRepository;
 import com.zagorskidev.carpricing.domain.CarType;
 import com.zagorskidev.carpricing.rest.SimpleToken;
 import com.zagorskidev.carpricing.service.loaders.SimpleCategory;
@@ -16,10 +16,13 @@ public class DataServiceImpl implements DataService
 	@Autowired
 	private TokenDataService tokenDataService;
 	
+	@Autowired 
+	private CategoriesRepository categoriesRepository;
+	
 	@Override
-	public Map<SimpleCategory, List<SimpleCategory>> getCarTypes(String parent) 
+	public Collection<SimpleCategory> getCarTypes(Integer parent) 
 	{
-		return null; //TODO load from DB
+		return categoriesRepository.findByParent(parent);
 	}
 
 	@Override
@@ -38,5 +41,12 @@ public class DataServiceImpl implements DataService
 	public SimpleToken loadToken() 
 	{
 		return tokenDataService.loadToken();
+	}
+
+	@Override
+	public void saveCarTypes(Collection<SimpleCategory> categories) 
+	{
+		categoriesRepository.saveAll(categories);
+		categoriesRepository.flush();
 	}
 }

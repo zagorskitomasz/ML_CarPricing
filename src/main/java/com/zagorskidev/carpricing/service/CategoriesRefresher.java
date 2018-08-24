@@ -16,14 +16,19 @@ import com.zagorskidev.carpricing.service.loaders.SimpleCategory;
 @Component
 public class CategoriesRefresher 
 {
-	private static final long ONE_HOUR = 60 * 60 * 1000;
+	private static final long TWELVE_HOURS = 12 * 60 * 60 * 1000;
 
 	@Autowired
 	private CarTypesLoader typesLoader;
 	
-	@Scheduled(fixedDelay=ONE_HOUR)
+	@Autowired
+	private DataService dataService;
+	
+	@Scheduled(fixedDelay=TWELVE_HOURS)
 	public void refreshCategories()
 	{
+		Logger.getGlobal().log(Level.INFO, "Refreshing categories...");
+		
 		try
 		{
 			Map<SimpleCategory,List<SimpleCategory>> categories = typesLoader.load();
@@ -44,8 +49,8 @@ public class CategoriesRefresher
 			persist(subcategories);
 	}
 
-	private void persist(Collection<SimpleCategory> subcategories) 
+	private void persist(Collection<SimpleCategory> categories) 
 	{
-		// TODO save into db
+		dataService.saveCarTypes(categories);
 	}
 }

@@ -2,17 +2,14 @@ package com.zagorskidev.carpricing.service.loaders;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CAR_CATEGORY")
+@Table(name = "CAR_TYPES")
 public class SimpleCategory 
 {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID")
 	private Integer id;
 	
@@ -22,6 +19,11 @@ public class SimpleCategory
 	@Column(name="PARENT")
 	private Integer parent;
 
+	public SimpleCategory()
+	{
+		
+	}
+	
 	public SimpleCategory(Integer id, String name, Integer parent) 
 	{
 		this.id = id;

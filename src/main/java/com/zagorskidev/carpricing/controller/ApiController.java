@@ -1,7 +1,7 @@
 package com.zagorskidev.carpricing.controller;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,15 +34,15 @@ public class ApiController
 	}
 	
 	@GetMapping("/getFirstLevel")
-	public @ResponseBody Set<SimpleCategory> getCarTypes()
+	public @ResponseBody Collection<SimpleCategory> getCarTypes()
 	{
-		return dataService.getCarTypes(CategoriesProcessor.OSOBOWE_CATEGORY).keySet();
+		return dataService.getCarTypes(CategoriesProcessor.OSOBOWE_CATEGORY);
 	}
 	
 	@GetMapping("/getSecondLevel/{id}")
-	public @ResponseBody Set<SimpleCategory> getCarTypes(@PathVariable String id)
+	public @ResponseBody Collection<SimpleCategory> getCarTypes(@PathVariable Integer id)
 	{
-		return dataService.getCarTypes(id).keySet();
+		return dataService.getCarTypes(id);
 	}
 	
 	@GetMapping("/process")
