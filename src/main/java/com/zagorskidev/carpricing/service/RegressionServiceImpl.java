@@ -4,19 +4,13 @@ import java.math.BigDecimal;
 
 import org.springframework.stereotype.Service;
 
-import com.zagorskidev.carpricing.domain.CarParams;
+import com.zagorskidev.carpricing.domain.CarParameters;
 
 @Service
 public class RegressionServiceImpl implements RegressionService 
 {
 	@Override
-	public void trainClassifier() 
-	{
-
-	}
-
-	@Override
-	public BigDecimal predict(CarParams params) 
+	public BigDecimal predict(CarParameters params) 
 	{
 		return null;
 	}

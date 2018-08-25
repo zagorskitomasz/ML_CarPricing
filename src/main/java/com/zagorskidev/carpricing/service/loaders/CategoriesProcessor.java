@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.zagorskidev.carpricing.rest.parsing.Categories;
+import com.zagorskidev.carpricing.rest.parsing.categories.Categories;
+import com.zagorskidev.carpricing.rest.parsing.categories.Category;
 
 public class CategoriesProcessor 
 {
@@ -38,11 +39,17 @@ public class CategoriesProcessor
 	{
 		Arrays.asList(categories.getCategories()).forEach(element -> 
 		{
-			if(String.valueOf(OSOBOWE_CATEGORY).equals(element.getParent().getId()))
+			if(!isValidCategory(element))
+				return;
+			
+			Integer id = Integer.valueOf(element.getId());
+			Integer parent = Integer.valueOf(element.getParent().getId());
+			
+			if(OSOBOWE_CATEGORY.equals(parent))
 			{
 				List<SimpleCategory> subcategories = new ArrayList<>();
 				categoriesIdMap.put(Integer.valueOf(element.getId()), subcategories);
-				categoriesMap.put(new SimpleCategory(Integer.valueOf(element.getId()), element.getName(), Integer.valueOf(OSOBOWE_CATEGORY)),subcategories);
+				categoriesMap.put(new SimpleCategory(id, element.getName(), OSOBOWE_CATEGORY),subcategories);
 			}
 		});
 	}
@@ -51,11 +58,24 @@ public class CategoriesProcessor
 	{
 		Arrays.asList(categories.getCategories()).forEach(element -> 
 		{
-			if(!element.getName().equals(POZOSTALE)
-					&& element.getId().chars().allMatch(Character::isDigit) 
-					&& element.getParent().getId().chars().allMatch(Character::isDigit)
-					&& categoriesIdMap.containsKey(Integer.valueOf(element.getParent().getId())))
-				categoriesIdMap.get(Integer.valueOf(element.getParent().getId())).add(new SimpleCategory(Integer.valueOf(element.getId()), element.getName(), Integer.valueOf(element.getParent().getId())));
+			if(!isValidCategory(element))
+				return;
+			
+			Integer id = Integer.valueOf(element.getId());
+			Integer parent = Integer.valueOf(element.getParent().getId());
+			
+			if(categoriesIdMap.containsKey(parent))
+				categoriesIdMap.get(parent).add(new SimpleCategory(id, element.getName(), parent));
 		});
+	}
+
+	private boolean isValidCategory(Category element) 
+	{
+		return isDigit(element.getId()) && isDigit(element.getParent().getId()) && !element.getName().equals(POZOSTALE);
+	}
+	
+	private boolean isDigit(String value)
+	{
+		return value == null || value.chars().allMatch(Character::isDigit);
 	}
 }

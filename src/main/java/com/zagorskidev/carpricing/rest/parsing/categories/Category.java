@@ -1,4 +1,4 @@
-package com.zagorskidev.carpricing.rest.parsing;
+package com.zagorskidev.carpricing.rest.parsing.categories;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 

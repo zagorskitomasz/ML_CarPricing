@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zagorskidev.carpricing.rest.AllegroRest;
-import com.zagorskidev.carpricing.rest.parsing.Categories;
+import com.zagorskidev.carpricing.rest.parsing.categories.Categories;
 
 @Component
 public class CarTypesLoaderImpl implements CarTypesLoader 

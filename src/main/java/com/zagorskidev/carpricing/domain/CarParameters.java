@@ -2,17 +2,22 @@ package com.zagorskidev.carpricing.domain;
 
 public class CarParameters 
 {
-	private CarType carType;
+	private Integer category;
 	private CarParams carParams;
 	
-	public CarType getType() 
+	public CarParameters()
 	{
-		return carType;
+		
 	}
 	
-	public void setType(CarType pmType)
+	public Integer getCategory() 
 	{
-		carType = pmType;
+		return category;
+	}
+	
+	public void setCategory(Integer category)
+	{
+		this.category = category;
 	}
 
 	public CarParams getParams() 
@@ -20,8 +25,8 @@ public class CarParameters
 		return carParams;
 	}
 	
-	public void setParams(CarParams pmParams)
+	public void setParams(CarParams carParams)
 	{
-		carParams = pmParams;
+		this.carParams = carParams;
 	}
 }

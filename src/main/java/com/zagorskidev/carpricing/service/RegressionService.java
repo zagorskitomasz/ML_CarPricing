@@ -2,10 +2,9 @@ package com.zagorskidev.carpricing.service;
 
 import java.math.BigDecimal;
 
-import com.zagorskidev.carpricing.domain.CarParams;
+import com.zagorskidev.carpricing.domain.CarParameters;
 
 public interface RegressionService 
 {
-	void trainClassifier();
-	BigDecimal predict(CarParams params);
+	BigDecimal predict(CarParameters params);
 }

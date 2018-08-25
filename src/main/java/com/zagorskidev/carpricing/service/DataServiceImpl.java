@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zagorskidev.carpricing.dao.CategoriesRepository;
-import com.zagorskidev.carpricing.domain.CarType;
+import com.zagorskidev.carpricing.domain.CarParams;
 import com.zagorskidev.carpricing.rest.SimpleToken;
 import com.zagorskidev.carpricing.service.loaders.SimpleCategory;
 
@@ -19,6 +19,9 @@ public class DataServiceImpl implements DataService
 	@Autowired 
 	private CategoriesRepository categoriesRepository;
 	
+	@Autowired 
+	private CarDataService carDataService;
+	
 	@Override
 	public Collection<SimpleCategory> getCarTypes(Integer parent) 
 	{
@@ -26,9 +29,9 @@ public class DataServiceImpl implements DataService
 	}
 
 	@Override
-	public boolean loadCarTypeData(CarType type) 
+	public Collection<CarParams> loadCarTypeData(Integer category) 
 	{
-		return false;
+		return carDataService.load(category);
 	}
 
 	@Override
