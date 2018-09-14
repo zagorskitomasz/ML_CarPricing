@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zagorskidev.carpricing.domain.CarParameters;
 import com.zagorskidev.carpricing.domain.CarParams;
+import com.zagorskidev.carpricing.service.CarParamType;
 import com.zagorskidev.carpricing.service.DataService;
 import com.zagorskidev.carpricing.service.RegressionService;
 import com.zagorskidev.carpricing.service.loaders.CategoriesProcessor;
@@ -49,7 +50,18 @@ public class ApiController
 	@GetMapping("/process")
 	public BigDecimal process(@RequestBody CarParameters carParameters)
 	{
-		return regressionService.predict(carParameters);
+		CarParams params = new CarParams();
+		params.setParam(CarParamType.CAPACITY.name(), 7);
+		params.setParam(CarParamType.MILEAGE.name(), 11);
+		params.setParam(CarParamType.POWER.name(), 7);
+		params.setParam(CarParamType.YEAR.name(), 8);
+		
+		
+		CarParameters car = new CarParameters();
+		car.setCategory(12525);
+		car.setParams(params);
+		
+		return regressionService.predict(car);
 	}
 	
 	@GetMapping("/test/{id}")
