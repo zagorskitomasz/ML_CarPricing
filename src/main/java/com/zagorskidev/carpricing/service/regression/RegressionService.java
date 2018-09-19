@@ -1,4 +1,4 @@
-package com.zagorskidev.carpricing.service;
+package com.zagorskidev.carpricing.service.regression;
 
 import java.math.BigDecimal;
 

@@ -15,9 +15,9 @@ import com.zagorskidev.carpricing.domain.CarParameters;
 import com.zagorskidev.carpricing.domain.CarParams;
 import com.zagorskidev.carpricing.service.CarParamType;
 import com.zagorskidev.carpricing.service.DataService;
-import com.zagorskidev.carpricing.service.RegressionService;
 import com.zagorskidev.carpricing.service.loaders.CategoriesProcessor;
 import com.zagorskidev.carpricing.service.loaders.SimpleCategory;
+import com.zagorskidev.carpricing.service.regression.RegressionService;
 
 @RestController
 @RequestMapping("/api")
@@ -68,5 +68,22 @@ public class ApiController
 	public Collection<CarParams> test(@PathVariable Integer id)
 	{
 		return dataService.loadCarTypeData(id);
+	}
+	
+	@GetMapping("/testPrediction")
+	public BigDecimal test()
+	{
+		CarParams params = new CarParams();
+		params.setParam(CarParamType.CAPACITY.name(), 6);
+		params.setParam(CarParamType.YEAR.name(), 7);
+		params.setParam(CarParamType.MILEAGE.name(), 12);
+		params.setParam(CarParamType.POWER.name(), 7);
+		params.setParam(CarParamType.PRICE.name(), 0);
+		
+		CarParameters parameters = new CarParameters();
+		parameters.setCategory(12525);
+		parameters.setParams(params);
+		
+		return regressionService.predict(parameters);
 	}
 }

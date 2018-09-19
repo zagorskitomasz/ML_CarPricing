@@ -4,45 +4,23 @@ import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.stereotype.Component;
+
 import weka.classifiers.functions.LinearRegression;
 import weka.core.Instances;
 import weka.core.SelectedTag;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Normalize;
 
-public class RegressionEngine 
+@Component
+public class RegressionEngine
 {
-	public static Initialized init()
+	public Initialized getEngine()
 	{
 		return new Engine();
 	}
 	
-	public interface Initialized
-	{
-		public TrainingDatasetHolder setTrainingDataset(Instances trainingDataset);
-	}
-
-	public interface TrainingDatasetHolder 
-	{
-		public PredictDatasetHolder setPredictDataset(Instances predictDataset);
-	}
-
-	public interface PredictDatasetHolder 
-	{
-		public Normalized normalize() throws Exception;
-	}
-
-	public interface Normalized 
-	{
-		public Classifier createClassifier() throws Exception;
-	}
-
-	public interface Classifier 
-	{
-		public BigDecimal predict() throws Exception;
-	}
-	
-	private static class Engine implements Initialized, TrainingDatasetHolder, PredictDatasetHolder, Normalized, Classifier
+	private class Engine implements Initialized, TrainingDatasetHolder, PredictionDatasetHolder, Normalized, Classifier
 	{
 		private LinearRegression classifier;
 		
@@ -56,7 +34,7 @@ public class RegressionEngine
 		}
 
 		@Override
-		public PredictDatasetHolder setPredictDataset(Instances predictDataset) 
+		public PredictionDatasetHolder setPredictDataset(Instances predictDataset) 
 		{
 			this.predictDataset = predictDataset;
 			return this;
@@ -99,6 +77,5 @@ public class RegressionEngine
 		{
 			return BigDecimal.valueOf(classifier.classifyInstance(predictDataset.firstInstance()));
 		}
-		
 	}
 }
