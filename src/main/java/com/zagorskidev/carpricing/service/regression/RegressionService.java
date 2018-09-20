@@ -6,5 +6,5 @@ import com.zagorskidev.carpricing.domain.CarParameters;
 
 public interface RegressionService 
 {
-	BigDecimal predict(CarParameters params);
+	public BigDecimal predict(CarParameters params);
 }

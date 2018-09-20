@@ -34,10 +34,12 @@ public class RegressionServiceImpl implements RegressionService
 		Instances trainingDataset = dataMapper.map(cars);
 		Instances predictDataset = dataMapper.map(params.getParams());
 		
-		return predict(trainingDataset, predictDataset);
+		Double prediction = predict(trainingDataset, predictDataset);
+		
+		return BigDecimal.valueOf(prediction);
 	}
-	
-	private BigDecimal predict(Instances trainingDataset, Instances predictDataset)
+
+	private Double predict(Instances trainingDataset, Instances predictDataset)
 	{
 		try
 		{
@@ -53,7 +55,7 @@ public class RegressionServiceImpl implements RegressionService
 		{
 			Logger.getGlobal().log(Level.INFO, "Error occured while predicting");
 			ex.printStackTrace();
-			return BigDecimal.valueOf(-1);
+			return Double.valueOf(-1);
 		}
 	}
 }

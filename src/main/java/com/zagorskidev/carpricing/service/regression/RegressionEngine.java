@@ -1,6 +1,5 @@
 package com.zagorskidev.carpricing.service.regression;
 
-import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -73,9 +72,9 @@ public class RegressionEngine
 		}
 		
 		@Override
-		public BigDecimal predict() throws Exception 
+		public Double predict() throws Exception 
 		{
-			return BigDecimal.valueOf(classifier.classifyInstance(predictDataset.firstInstance()));
+			return classifier.classifyInstance(predictDataset.firstInstance());
 		}
 	}
 }

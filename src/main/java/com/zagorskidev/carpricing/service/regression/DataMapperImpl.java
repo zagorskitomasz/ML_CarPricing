@@ -87,23 +87,22 @@ public class DataMapperImpl implements DataMapper
 
 	private double[] createRow(CarParams car) 
 	{		
-		if(fullDataAvailable(car))
-		{
-			double[] row = new double[CarParamType.values().length];
+		if(!fullDataAvailable(car))
+			return null;
+		
+		double[] row = new double[CarParamType.values().length];
 			
-			for(int i = 0; i < row.length; i++)
-				row[i] = car.getParams().get(CarParamType.values()[i].name());
+		for(int i = 0; i < row.length; i++)
+			row[i] = car.getParams().get(CarParamType.values()[i].name());
 			
-			return row;
-		}
-		return null;
+		return row;
 	}
 
 	private boolean fullDataAvailable(CarParams car) 
 	{
 		for(CarParamType param : CarParamType.values())
 		{
-			if(car.getParams().get(param.name()) == null)
+			if(!car.getParams().containsKey(param.name()))
 				return false;
 		}
 		return true;

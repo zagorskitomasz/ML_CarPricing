@@ -6,7 +6,6 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,41 +46,23 @@ public class ApiController
 		return dataService.getCarTypes(id);
 	}
 	
-	@GetMapping("/process")
-	public BigDecimal process(@RequestBody CarParameters carParameters)
+	@GetMapping("/test/{id}/{capacity}/{year}/{mileage}/{power}")
+	public BigDecimal test(
+			@PathVariable("id") Integer id,
+			@PathVariable("capacity") Double capacity,
+			@PathVariable("year") Double year,
+			@PathVariable("mileage") Double mileage,
+			@PathVariable("power") Double power)
 	{
 		CarParams params = new CarParams();
-		params.setParam(CarParamType.CAPACITY.name(), 7);
-		params.setParam(CarParamType.MILEAGE.name(), 11);
-		params.setParam(CarParamType.POWER.name(), 7);
-		params.setParam(CarParamType.YEAR.name(), 8);
-		
-		
-		CarParameters car = new CarParameters();
-		car.setCategory(12525);
-		car.setParams(params);
-		
-		return regressionService.predict(car);
-	}
-	
-	@GetMapping("/test/{id}")
-	public Collection<CarParams> test(@PathVariable Integer id)
-	{
-		return dataService.loadCarTypeData(id);
-	}
-	
-	@GetMapping("/testPrediction")
-	public BigDecimal test()
-	{
-		CarParams params = new CarParams();
-		params.setParam(CarParamType.CAPACITY.name(), 6);
-		params.setParam(CarParamType.YEAR.name(), 7);
-		params.setParam(CarParamType.MILEAGE.name(), 12);
-		params.setParam(CarParamType.POWER.name(), 7);
-		params.setParam(CarParamType.PRICE.name(), 0);
+		params.setParam(CarParamType.CAPACITY.name(), capacity);
+		params.setParam(CarParamType.YEAR.name(), year);
+		params.setParam(CarParamType.MILEAGE.name(), mileage);
+		params.setParam(CarParamType.POWER.name(), power);
+		params.setParam(CarParamType.PRICE.name(), 0.0);
 		
 		CarParameters parameters = new CarParameters();
-		parameters.setCategory(12525);
+		parameters.setCategory(id);
 		parameters.setParams(params);
 		
 		return regressionService.predict(parameters);

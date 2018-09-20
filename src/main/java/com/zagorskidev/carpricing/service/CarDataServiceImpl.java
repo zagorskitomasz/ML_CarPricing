@@ -67,7 +67,7 @@ public class CarDataServiceImpl implements CarDataService
 			for(Long id : ids)
 			{
 				if(carsMap.containsKey(id))
-					carsMap.get(id).setParam(type.name(), i);
+					carsMap.get(id).setParam(type.name(), ((double)type.getParameterValues()[i] + (double)type.getParameterValues()[i+1]) / 2.0);
 			}
 		}
 	}
