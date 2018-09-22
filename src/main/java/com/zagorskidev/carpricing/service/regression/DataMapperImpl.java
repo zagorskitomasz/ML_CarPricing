@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.zagorskidev.carpricing.domain.CarParams;
 import com.zagorskidev.carpricing.service.CarParamType;
+import com.zagorskidev.carpricing.service.regression.polynomial.PolynomialFeatures;
 
 import weka.core.DenseInstance;
 import weka.core.Instance;
@@ -21,17 +22,6 @@ import weka.core.converters.ArffLoader;
 @Component
 public class DataMapperImpl implements DataMapper 
 {
-	private static final String DATA_SET_HEADER = ""
-			+ "@RELATION text\n"
-			+ "\n"
-			+ "@ATTRIBUTE year     NUMERIC\n"
-			+ "@ATTRIBUTE capacity NUMERIC\n"
-			+ "@ATTRIBUTE mileage  NUMERIC\n"
-			+ "@ATTRIBUTE power    NUMERIC\n"
-			+ "@ATTRIBUTE price    NUMERIC\n"
-			+ "\n"
-			+ "@DATA\n";
-
 	@Override
 	public Instances map(CarParams params) 
 	{
@@ -89,11 +79,18 @@ public class DataMapperImpl implements DataMapper
 	{		
 		if(!fullDataAvailable(car))
 			return null;
-		
-		double[] row = new double[CarParamType.values().length];
 			
-		for(int i = 0; i < row.length; i++)
-			row[i] = car.getParams().get(CarParamType.values()[i].name());
+		int straightFeatures = CarParamType.values().length;
+		int polynomialFeatures = PolynomialFeatures.values().length;
+		int allFeatures = straightFeatures + polynomialFeatures;
+		
+		double[] row = new double[allFeatures];
+		
+		for(int i = 0; i < polynomialFeatures; i++)
+			row[i] = PolynomialFeatures.values()[i].compute(car.getParams());
+		
+		for(int i = polynomialFeatures; i < allFeatures; i++)
+			row[i] = car.getParams().get(CarParamType.values()[i - polynomialFeatures].name());
 			
 		return row;
 	}
@@ -110,8 +107,29 @@ public class DataMapperImpl implements DataMapper
 
 	private InputStream getHeader()
 	{
-		String data = DATA_SET_HEADER;
+		String data = createHeader();
 		
 		return new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
+	}
+
+	private String createHeader() 
+	{
+		StringBuilder header = new StringBuilder(""
+				+ "@RELATION text\n"
+				+ "\n");
+		
+		for(PolynomialFeatures feature : PolynomialFeatures.values())
+			header.append(""
+				+ "@ATTRIBUTE " + feature.name() + "     NUMERIC\n");
+		
+		for(CarParamType feature : CarParamType.values())
+			header.append(""
+				+ "@ATTRIBUTE " + feature.name() + "     NUMERIC\n");
+				
+		header.append(""
+				+ "\n"
+				+ "@DATA\n");
+		
+		return header.toString();
 	}
 }

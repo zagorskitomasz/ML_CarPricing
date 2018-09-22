@@ -1,6 +1,5 @@
 package com.zagorskidev.carpricing.controller;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +46,7 @@ public class ApiController
 	}
 	
 	@GetMapping("/test/{id}/{capacity}/{year}/{mileage}/{power}")
-	public BigDecimal test(
+	public Double test(
 			@PathVariable("id") Integer id,
 			@PathVariable("capacity") Double capacity,
 			@PathVariable("year") Double year,

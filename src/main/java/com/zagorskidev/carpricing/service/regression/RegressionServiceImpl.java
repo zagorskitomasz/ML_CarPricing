@@ -1,6 +1,5 @@
 package com.zagorskidev.carpricing.service.regression;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +26,7 @@ public class RegressionServiceImpl implements RegressionService
 	private RegressionEngine regressionEngine;
 	
 	@Override
-	public BigDecimal predict(CarParameters params) 
+	public Double predict(CarParameters params) 
 	{
 		Collection<CarParams> cars = dataService.loadCarTypeData(params.getCategory());
 		
@@ -36,7 +35,7 @@ public class RegressionServiceImpl implements RegressionService
 		
 		Double prediction = predict(trainingDataset, predictDataset);
 		
-		return BigDecimal.valueOf(prediction);
+		return prediction;
 	}
 
 	private Double predict(Instances trainingDataset, Instances predictDataset)
