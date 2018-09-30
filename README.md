@@ -8,39 +8,14 @@
 5. Return result to user.
 
 <b>Technologies:</b>
-- Java 8,
+- Java,
 - Spring (Boot and DI container),
 - REST,
-- Vaadin frontend,
-- Some ML/math library,
+- Weka,
+- JavaScript
+
+<b>==DONE==</b>
+Backend
 
 <b>==TODO==</b>
-
-A. PROJECT SETUP  
-  ==DONE==
-
-B. IMPLEMENTATION
-1. Controller.
-2. Data service  
-  a) connector,  
-  b) parser.  
-3. Data model.
-4. Processing service
-a) algorithm trainer,
-b) algorithm user.
-5. Frontend
-
-![diagram](https://github.com/zagorskitomasz/ML_CarPricing/blob/master/Car-pricing-diagram.jpg)
-
-<b>Misc notes:</b>  
-  
-Allegro REST API usage algorithm:
-1. Create dedicated Allegro user.
-2. Manually get first OAuth token.
-3. Insert token into DB.
-4. App use: try authenticate with current token (success -> 5, failure -> 6).
-5. Use token to communicate with API.
-6. Automatically refresh token and save in DB. Go to 4.
-
-Schedule token refreshing task (11 hours, first run at application launch) - it's steps 4-6 from above algorithm.
-Keeping token in memory (somewhere in AllegroAuth bean) - if refreshed, update here too.
+Frontend
